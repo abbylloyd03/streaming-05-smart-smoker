@@ -26,9 +26,14 @@ smoker-temps.csv has 4 columns:
 - How many queues do we use: 3
 - How many listening callback functions do we need (Hint: one per queue): 3
 
-## Results
+## Results - Terminal
 - A an example of the producer running in the terminal
 
-![Python terminal](Terminals.png)
+![Python terminal](Terminal.png)
+
+## Results - RabbitMQ Management
+
+![Python terminal](RabbitMQ.png)
+
 
 
