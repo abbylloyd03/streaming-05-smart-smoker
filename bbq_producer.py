@@ -13,7 +13,6 @@ import webbrowser
 import csv
 import time
 
-
 def offer_rabbitmq_admin_site():
     """
     If show_offer is True, offer to open the RabbitMQ Admin website. 
@@ -81,25 +80,17 @@ if __name__ == "__main__":
     sleep_time = 30
     # Then, for each data row in the reader
     for row in reader:
-        # replace empty string with 'No reading'
         for (t, ch1, ch2, ch3) in reader:
-            if ch1 == '':
-                ch1 = 'No reading'
-            if ch2 == '':
-                ch2 = 'No reading'
-            if ch3 == '':
-                ch3 = 'No reading'
-    
             # get the message from reader
             # if no arguments are provided, use the default message
             # use the join method to convert the list of arguments into a string
             # join by the space character inside the quotes
-            message1 = " ".join(sys.argv[1:]) or f'Smoker, {t}, {ch1}'
-            message2 = " ".join(sys.argv[1:]) or f'Food A, {t}, {ch2}'
-            message3 = " ".join(sys.argv[1:]) or f'Food B, {t}, {ch3}'
+            message1 = " ".join(sys.argv[1:]) or f'{ch1}'
+            message2 = " ".join(sys.argv[1:]) or f'{ch2}'
+            message3 = " ".join(sys.argv[1:]) or f'{ch3}'
             # send the messages to the queue 
-            send_message("localhost","task_queue_smoker",message1)
-            send_message("localhost","task_queue_food_a",message2)
-            send_message("localhost","task_queue_food_b",message3)
+            send_message("localhost","01-smoker",message1)
+            send_message("localhost","02-food-A",message2)
+            send_message("localhost","02-food-B",message3)
             # sleep for the sleep_time indicated above
             time.sleep(sleep_time)
