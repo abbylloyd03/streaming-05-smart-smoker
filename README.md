@@ -30,9 +30,6 @@ smoker-temps.csv has 4 columns:
 - A an example of the producer running in the terminal
 ![Python terminal](Terminal.png)
 
-## Preliminary Results of Producer Running - RabbitMQ Management
-
-![Python terminal](RabbitMQ.png)
 
 ## Next Steps: We want know if...
 - The smoker temperature decreases by more than 15 degrees F in 2.5 minutes (smoker alert!)
