@@ -1,18 +1,25 @@
 """
-    This program listens for work messages continuously. 
-    Start multiple versions to add more workers.  
+    This program listens for messages from the bbq_producer.py continuously. 
+    Messages are changed to floats, and a message is printed if food temp
+    has changed by less than 1 degree F.
 
-    Author: Denise Case
-    Date: January 15, 2023
+    Author: Abby Lloyd / Denise Case
+    Date: February 11, 2023
 
 """
 
 import pika
 import sys
-# import time
 from collections import deque
 
+#####################################################################################
+
+# define variables
 bbq_deque = deque(maxlen=20)
+difference = 100
+queue_name = '02-food-A'
+
+#####################################################################################
 
 # define a callback function to be called when a message is received
 def callback(ch, method, properties, body):
@@ -23,13 +30,11 @@ def callback(ch, method, properties, body):
     # If message is empty string, change to zero
     if message == '':
         message = 0
-    # change message to float and append to deque
+    # append message to deque as float
     bbq_deque.append(float(message))
-    # Define variable difference and make an empty list
-    difference = 100
-    list_of_readings = []
-    # Add readings to list and disregard any non-readings (0)
+    # Add readings to list and disregard any non-readings (zeros)
     for item in bbq_deque:
+        list_of_readings = []
         if item > 0:
             list_of_readings.append(item)
     # If there are more than one reading in list, calculate difference
@@ -44,6 +49,7 @@ def callback(ch, method, properties, body):
     # (now it can be deleted from the queue)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
+#####################################################################################
 
 # define a main function to run the program
 def main(hn: str = "localhost", qn: str = "task_queue"):
@@ -109,6 +115,7 @@ def main(hn: str = "localhost", qn: str = "task_queue"):
         print("\nClosing connection. Goodbye.\n")
         connection.close()
 
+#####################################################################################
 
 # Standard Python idiom to indicate main program entry point
 # This allows us to import this module and use its functions
@@ -116,4 +123,4 @@ def main(hn: str = "localhost", qn: str = "task_queue"):
 # If this is the program being run, then execute the code below
 if __name__ == "__main__":
     # call the main function with the information needed
-    main("localhost", "02-food-A")
+    main("localhost", queue_name)

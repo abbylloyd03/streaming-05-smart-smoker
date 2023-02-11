@@ -13,13 +13,21 @@ import webbrowser
 import csv
 import time
 
+#####################################################################################
+
+# define variables
+show_offer = False
+sleep_time = 30
+input_file_name = "/Users/Abby/Documents/44-671 Streaming Data/Module 5/streaming-05-smart-smoker/smoker-temps.csv"
+
+#####################################################################################
+
 def offer_rabbitmq_admin_site():
     """
     If show_offer is True, offer to open the RabbitMQ Admin website. 
     Otherwise, open automatically.
     """
 
-    show_offer = False
     if show_offer == True:
         ans = input("Would you like to monitor RabbitMQ queues? y or n ")
         print()
@@ -28,6 +36,8 @@ def offer_rabbitmq_admin_site():
             print()
     else:
         webbrowser.open_new("http://localhost:15672/#/queues")
+
+#####################################################################################
 
 def send_message(host: str, queue_name: str, message: str):
     """
@@ -63,6 +73,8 @@ def send_message(host: str, queue_name: str, message: str):
         # close the connection to the server
         conn.close()
 
+#####################################################################################
+
 # Standard Python idiom to indicate main program entry point
 # This allows us to import this module and use its functions
 # without executing the code below.
@@ -70,14 +82,10 @@ def send_message(host: str, queue_name: str, message: str):
 if __name__ == "__main__":  
     # ask the user if they'd like to open the RabbitMQ Admin site
     offer_rabbitmq_admin_site()
-    # Declare a variable to hold the input file name
-    input_file_name = "/Users/Abby/Documents/44-671 Streaming Data/Module 5/streaming-05-smart-smoker/smoker-temps.csv"
     # Create a file object for input (r = read access)
     input_file = open(input_file_name, "r")
     # Create a csv reader for a comma delimited file
     reader = csv.reader(input_file, delimiter=",")
-    # Declare a variable to hold the amount of sleep time between messages
-    sleep_time = 30
     # Then, for each data row in the reader
     for row in reader:
         for (t, ch1, ch2, ch3) in reader:
