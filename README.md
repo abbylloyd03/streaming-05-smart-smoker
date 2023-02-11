@@ -26,14 +26,29 @@ smoker-temps.csv has 4 columns:
 - How many queues do we use: 3
 - How many listening callback functions do we need (Hint: one per queue): 3
 
-## Results - Terminal
+## Preliminary Results of Producer Running - Terminal
 - A an example of the producer running in the terminal
-
 ![Python terminal](Terminal.png)
 
-## Results - RabbitMQ Management
+## Preliminary Results of Producer Running - RabbitMQ Management
 
 ![Python terminal](RabbitMQ.png)
+
+## Next Steps: We want know if...
+- The smoker temperature decreases by more than 15 degrees F in 2.5 minutes (smoker alert!)
+- Any food temperature changes less than 1 degree F in 10 minutes (food stall!)
+
+## Deque Max Length
+- At one reading every 1/2 minute, the smoker deque max length is 5 (2.5 min * 1 reading/0.5 min
+- At one reading every 1/2 minute, the food deque max length is 20 (10 min * 1 reading/0.5 min) 
+
+## Results of Producer and Three Consumers Running Simultaneously
+
+![Python terminal](Multiple_Terminals.png)
+
+## Results of RabbitMQ After Messages Have Been Sent And Consumed
+
+![Python terminal](Final_RabbitMQ.png)
 
 
 

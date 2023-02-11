@@ -16,8 +16,8 @@ from collections import deque
 
 # define variables
 bbq_deque = deque(maxlen=5)
-difference = 0
 queue_name = '01-smoker'
+alert_message = "Smoker Alert: Smoker temperature has decreased by more than 15 degrees!"
 
 #####################################################################################
 
@@ -40,9 +40,11 @@ def callback(ch, method, properties, body):
     # If there are more than one reading in list, calculate difference
     if len(list_of_readings) > 1:
         difference = max(list_of_readings) - min(list_of_readings)
-    # print message if difference is greater than 15 degrees
-    if difference > 15:
-        print("Smoker temperature has decreased by more than 15 degrees!")
+    else:
+        difference = 0
+    # print message if difference is greater than 15 degrees and max is read before min
+    if difference > 15 and list_of_readings.index(max(list_of_readings) < min(list_of_readings)):
+        print(alert_message)
     # when done with task, tell the user
     print(" [x] Done.")
     # acknowledge the message was received and processed 

@@ -16,8 +16,8 @@ from collections import deque
 
 # define variables
 bbq_deque = deque(maxlen=20)
-difference = 100
 queue_name = '02-food-B'
+alert_message = "Food Stall: Food temperature has changed by less than 1 degree!"
 
 #####################################################################################
 
@@ -32,7 +32,7 @@ def callback(ch, method, properties, body):
         message = 0
     # append message to deque as float
     bbq_deque.append(float(message))
-    # Add readings to list and disregard any non-readings (zeros)
+    # If message contains valid reading (not empty string) add to list
     for item in bbq_deque:
         list_of_readings = []
         if item > 0:
@@ -40,9 +40,11 @@ def callback(ch, method, properties, body):
     # If there are more than one reading in list, calculate difference
     if len(list_of_readings) > 1:
         difference = max(list_of_readings) - min(list_of_readings)
+    else:
+        difference = 100
     # print message if difference is less than one degree
     if difference < 1:
-        print("Food temperature has changed by less than 1 degree!")
+        print(alert_message)
     # when done with task, tell the user
     print(" [x] Done.")
     # acknowledge the message was received and processed 
