@@ -2,7 +2,7 @@
 ## Abby Lloyd
 ## 7 Feb 2023
 
-> Create a producer to stream information from a smart smoker. 
+> Create a producer to stream information from a smart smoker. Create three consumers to read information and send an alert message if certain criteria are met.  
 
 ## Challenge to Solve
 We want to stream information from a smart smoker. Read one value every half minute. (sleep_secs = 30)
