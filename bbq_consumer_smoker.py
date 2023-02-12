@@ -18,6 +18,7 @@ from collections import deque
 bbq_deque = deque(maxlen=5)
 queue_name = '01-smoker'
 alert_message = "Smoker Alert: Smoker temperature has decreased by more than 15 degrees!"
+no_alert_message = "Done."
 
 #####################################################################################
 
@@ -30,11 +31,13 @@ def callback(ch, method, properties, body):
     # If message is empty string, change to zero
     if message == '':
         message = 0
+    else:
+        message = message
     # change message to float and append to deque
     bbq_deque.append(float(message))
     # Add readings to list and disregard any non-readings (0)
+    list_of_readings = []
     for item in bbq_deque:
-        list_of_readings = []
         if item > 0:
             list_of_readings.append(item)
     # If there are more than one reading in list, calculate difference
@@ -43,10 +46,12 @@ def callback(ch, method, properties, body):
     else:
         difference = 0
     # print message if difference is greater than 15 degrees and max is read before min
-    if difference > 15 and list_of_readings.index(max(list_of_readings) < min(list_of_readings)):
-        print(alert_message)
+    if difference > 15 and list_of_readings.index(max(list_of_readings)) < list_of_readings.index(min(list_of_readings)):
+        final_alert = alert_message
+    else:
+        final_alert = no_alert_message
     # when done with task, tell the user
-    print(" [x] Done.")
+    print(f" [x] {final_alert}")
     # acknowledge the message was received and processed 
     # (now it can be deleted from the queue)
     ch.basic_ack(delivery_tag=method.delivery_tag)

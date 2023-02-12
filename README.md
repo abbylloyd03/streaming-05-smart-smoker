@@ -43,6 +43,11 @@ smoker-temps.csv has 4 columns:
 
 ![Python terminal](Multiple_Terminals.png)
 
+## Consumers Showing Alert Messages
+
+![Python terminal](Alerts_Showing.png)
+
+
 ## Results of RabbitMQ After Messages Have Been Sent And Consumed
 
 ![Python terminal](Final_RabbitMQ.png)

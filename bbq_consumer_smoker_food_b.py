@@ -18,6 +18,7 @@ from collections import deque
 bbq_deque = deque(maxlen=20)
 queue_name = '02-food-B'
 alert_message = "Food Stall: Food temperature has changed by less than 1 degree!"
+no_alert_message = "Done."
 
 #####################################################################################
 
@@ -33,20 +34,22 @@ def callback(ch, method, properties, body):
     # append message to deque as float
     bbq_deque.append(float(message))
     # If message contains valid reading (not empty string) add to list
+    list_of_readings = []
     for item in bbq_deque:
-        list_of_readings = []
         if item > 0:
             list_of_readings.append(item)
     # If there are more than one reading in list, calculate difference
-    if len(list_of_readings) > 1:
+    if len(bbq_deque) == 20 and len(list_of_readings) > 8:
         difference = max(list_of_readings) - min(list_of_readings)
     else:
         difference = 100
     # print message if difference is less than one degree
     if difference < 1:
-        print(alert_message)
+        final_alert = alert_message
+    else:
+        final_alert = no_alert_message
     # when done with task, tell the user
-    print(" [x] Done.")
+    print(f" [x] {final_alert}")
     # acknowledge the message was received and processed 
     # (now it can be deleted from the queue)
     ch.basic_ack(delivery_tag=method.delivery_tag)
