@@ -17,7 +17,7 @@ import time
 
 # define variables
 show_offer = False
-sleep_time = .2
+sleep_time = 30
 input_file_name = "/Users/Abby/Documents/44-671 Streaming Data/Module 5/streaming-05-smart-smoker/smoker-temps.csv"
 
 #####################################################################################
