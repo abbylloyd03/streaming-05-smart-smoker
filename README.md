@@ -9,10 +9,10 @@ We want to stream information from a smart smoker. Read one value every half min
 
 smoker-temps.csv has 4 columns:
 
-[0] Time = Date-time stamp for the sensor reading
-[1] Channel1 = Smoker Temp --> send to message queue "01-smoker"
-[2] Channel2 = Food A Temp --> send to message queue "02-food-A"
-[3] Channel3 = Food B Temp --> send to message queue "02-food-B"
+- [0] Time = Date-time stamp for the sensor reading
+- [1] Channel1 = Smoker Temp --> send to message queue "01-smoker"
+- [2] Channel2 = Food A Temp --> send to message queue "02-food-A"
+- [3] Channel3 = Food B Temp --> send to message queue "02-food-B"
 
 ## Requirements
 - RabbitMQ server running
@@ -36,7 +36,7 @@ smoker-temps.csv has 4 columns:
 - Any food temperature changes less than 1 degree F in 10 minutes (food stall!)
 
 ## Deque Max Length
-- At one reading every 1/2 minute, the smoker deque max length is 5 (2.5 min * 1 reading/0.5 min
+- At one reading every 1/2 minute, the smoker deque max length is 5 (2.5 min * 1 reading/0.5 min)
 - At one reading every 1/2 minute, the food deque max length is 20 (10 min * 1 reading/0.5 min) 
 
 ## Results of Producer and Three Consumers Running Simultaneously
